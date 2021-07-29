@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 8.0
+
+services:
+  - mysql
+
+before_script:
+  - mysql -e 'create database testing;'
+  - composer self-update
+  - composer install --no-interaction
+  - cp .env.travis .env
+  - php artisan key:generate
+  - cp .env .env.testing
+  - php artisan migrate
+
+script:
+  - vendor/bin/phpunit
+
