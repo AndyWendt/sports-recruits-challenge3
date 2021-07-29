@@ -5,17 +5,16 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class TeamDistributionTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @test
      */
-    public function testBasicTest()
+    public function it_displays_team_distributions()
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
+        $response->assertSeeText('Teams distribution');
     }
 }
