@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\PlayersCollection;
 use Faker\Factory as Faker;
 use Illuminate\Support\Collection;
 
@@ -11,19 +12,12 @@ class TeamsRepository
     const MAX_TEAM_SIZE = 22;
 
     protected $faker;
-    protected $players;
-
-    public function __construct()
+    public function __construct(protected Collection $players)
     {
         $this->faker = Faker::create();
     }
 
-    public function fetchTeams(Collection $players): Collection
-    {
-        return $this->setPlayers($players)->generateTeams();
-    }
-
-    protected function generateTeams(): Collection
+    public function generateTeams(): Collection
     {
         $teams = collect([])
                 ->times($this->getTeamNumberWithGoalies())
@@ -146,25 +140,5 @@ class TeamsRepository
     protected function teamSizes(): array
     {
         return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
-    }
-
-    /**
-     * Get the value of players
-     */
-    public function getPlayers(): Collection
-    {
-        return $this->players;
-    }
-
-    /**
-     * Set the value of players
-     *
-     * @return  self
-     */
-    public function setPlayers($players): self
-    {
-        $this->players = $players;
-
-        return $this;
     }
 }

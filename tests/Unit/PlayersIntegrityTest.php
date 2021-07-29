@@ -33,7 +33,7 @@ class PlayersIntegrityTest extends TestCase
 
         $players = User::ofPlayers()->get();
 
-        $teams = (new TeamsRepository)->fetchTeams($players);
+        $teams = (new TeamsRepository($players))->generateTeams();
 
         // Check even number of teams
         $this->assertTrue($teams->isEven());
@@ -62,7 +62,7 @@ class PlayersIntegrityTest extends TestCase
     {
         $players = User::ofPlayers()->get();
         $goalies = $players->where('can_play_goalie', 1);
-        $instance = new TeamsRepository();
+        $instance = new TeamsRepository($players);
         $result = $instance->playersSortedByRank($players, $goalies);
         $this->assertGreaterThan(0, $goalies->count());
         $this->assertCount(0, $result->intersect($goalies), 'There should be no goalies in the sorted by rank results');

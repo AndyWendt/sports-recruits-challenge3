@@ -8,19 +8,12 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    protected $repository;
-
-    public function __construct(TeamsRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function index(Request $request)
     {
         $players = User::ofPlayers()->get();
-        
-        $teams = $this->repository->fetchTeams($players);
-        
+
+        $teams = (new TeamsRepository($players))->generateTeams();
+
     	return view('teams', compact('teams'));
     }
 }
