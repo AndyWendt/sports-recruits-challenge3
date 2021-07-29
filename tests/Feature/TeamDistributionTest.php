@@ -16,5 +16,8 @@ class TeamDistributionTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSeeText('Teams distribution');
+        $response->assertSeeText('Player name');
+        $response->assertSeeText('Goalie');
+        $response->assertSeeText('Ranking');
     }
 }
