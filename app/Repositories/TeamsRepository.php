@@ -78,9 +78,25 @@ class TeamsRepository
     {
     	$goaliePlayers = $this->getGoalies()->sortByDesc('ranking');
 
-        $playersSortedByRanking = $this->players->whereNotIn('id', $goaliePlayers->pluck('id')->all())->sortByDesc('ranking');
+        $playersSortedByRanking = $this->playersSortedByRank($this->players, $goaliePlayers);
 
 		return $goaliePlayers->concat($playersSortedByRanking);
+    }
+
+    /**
+     * See [WELC] 138: The Case of the Hidden Method
+     *
+     * Promoting this to a public function to get it under test is the desire here even though we likely don't want it
+     * to be a public method in an ideal situation.  This is likely the case of a missing abstraction.
+     *
+     *
+     * @param Collection $players
+     * @param Collection $goaliePlayers
+     * @return Collection
+     */
+    public function playersSortedByRank(Collection $players, Collection $goaliePlayers): Collection
+    {
+        return $players->whereNotIn('id', $goaliePlayers->pluck('id')->all())->sortByDesc('ranking');
     }
 
     /**
