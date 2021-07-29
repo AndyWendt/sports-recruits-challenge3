@@ -18,12 +18,12 @@ class TeamsRepository
         $this->faker = Faker::create();
     }
 
-    public function fetchTeams(Collection $players)
+    public function fetchTeams(Collection $players): Collection
     {
         return $this->setPlayers($players)->generateTeams();
     }
-    
-    protected function generateTeams()
+
+    protected function generateTeams(): Collection
     {
         $teams = collect([])
                 ->times($this->getTeamNumberWithGoalies())
@@ -47,7 +47,7 @@ class TeamsRepository
 
 
             if(count($teamPlayers) < $maxPlayers) {
-				$teamPlayers->push(collect($player->only(['fullname', 'isGoalie', 'ranking'])));	
+				$teamPlayers->push(collect($player->only(['fullname', 'isGoalie', 'ranking'])));
 			}
         }
 
@@ -69,7 +69,7 @@ class TeamsRepository
     {
         return $this->faker->company;
     }
-    
+
     /**
      * Return a collection of sorted players
      * goalies first
@@ -79,12 +79,12 @@ class TeamsRepository
     	$goaliePlayers = $this->getGoalies()->sortByDesc('ranking');
 
         $playersSortedByRanking = $this->players->whereNotIn('id', $goaliePlayers->pluck('id')->all())->sortByDesc('ranking');
-        
+
 		return $goaliePlayers->concat($playersSortedByRanking);
     }
 
     /**
-     * Return number of teams we can generate 
+     * Return number of teams we can generate
      * with at least one goalie
      */
     protected function getTeamNumberWithGoalies(): int
@@ -119,7 +119,7 @@ class TeamsRepository
     /**
      * Return maximum number of team players
      */
-    protected function maxTeamPlayers()
+    protected function maxTeamPlayers(): int
     {
     	return max($this->teamSizes());
     }
@@ -127,15 +127,15 @@ class TeamsRepository
     /**
      * Get available range for team size
      */
-    protected function teamSizes()
+    protected function teamSizes(): array
     {
         return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
     }
 
     /**
      * Get the value of players
-     */ 
-    public function getPlayers()
+     */
+    public function getPlayers(): Collection
     {
         return $this->players;
     }
@@ -144,8 +144,8 @@ class TeamsRepository
      * Set the value of players
      *
      * @return  self
-     */ 
-    public function setPlayers($players)
+     */
+    public function setPlayers($players): self
     {
         $this->players = $players;
 
