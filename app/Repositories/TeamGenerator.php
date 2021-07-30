@@ -12,14 +12,6 @@ class TeamGenerator
     public function __construct(private PlayersCollection $players) {}
 
     /**
-     * Get available range for team size
-     */
-    public function teamSizes(): array
-    {
-        return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
-    }
-
-    /**
      * Return maximum number of team players
      */
     public function maxTeamPlayers(): int
@@ -37,10 +29,18 @@ class TeamGenerator
     }
 
     /**
+     * Get available range for team size
+     */
+    protected function teamSizes(): array
+    {
+        return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
+    }
+
+    /**
      * Figure out how many teams we will be able to generate
      * based on the players we have
      */
-    public function getMaximumPossibleTeams(): int
+    protected function getMaximumPossibleTeams(): int
     {
         return collect($this->teamSizes())
             ->map(function ($value) {
