@@ -14,6 +14,7 @@ class TeamsRepository
     protected $faker;
     public function __construct(protected Collection $players)
     {
+        $this->players = new PlayersCollection($this->players);
         $this->faker = Faker::create();
     }
 
@@ -107,7 +108,7 @@ class TeamsRepository
      */
     protected function getGoalies(): Collection
     {
-        return $this->players->where('can_play_goalie', 1);
+        return $this->players->goalies();
     }
 
     /**
