@@ -10,4 +10,9 @@ class PlayersCollection extends Collection
     {
         return $this->where('can_play_goalie', 1);
     }
+
+    public function ranked()
+    {
+        return $this->whereNotIn('id', $this->goalies()->pluck('id')->all())->sortByDesc('ranking');
+    }
 }

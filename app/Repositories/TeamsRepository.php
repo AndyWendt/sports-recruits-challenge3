@@ -91,7 +91,7 @@ class TeamsRepository
      */
     public function playersSortedByRank(Collection $players, Collection $goaliePlayers): Collection
     {
-        return $players->whereNotIn('id', $goaliePlayers->pluck('id')->all())->sortByDesc('ranking');
+        return (new PlayersCollection($players))->ranked();
     }
 
     /**
