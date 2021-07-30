@@ -54,21 +54,4 @@ class PlayersIntegrityTest extends TestCase
 
         $this->assertEmpty($missingGoalie);
     }
-
-    /**
-     * @test
-     */
-    public function it_sorts_players_by_ranking_desc_and_excludes_goalies()
-    {
-        $players = User::players();
-        $goalies = $players->where('can_play_goalie', 1);
-        $instance = new TeamsRepository($players);
-        $result = $instance->playersSortedByRank($players, $goalies);
-        $this->assertGreaterThan(0, $goalies->count());
-        $this->assertCount(0, $result->intersect($goalies), 'There should be no goalies in the sorted by rank results');
-
-        $rankings = $result->pluck('ranking');
-        $this->assertTrue(true);
-        $this->assertSame($rankings->sortDesc()->toArray(), $rankings->toArray());
-    }
 }
