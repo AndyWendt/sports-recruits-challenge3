@@ -8,20 +8,20 @@ use Illuminate\Support\Collection;
 
 class TeamsRepository
 {
-    const MIN_TEAM_SIZE = 18;
-    const MAX_TEAM_SIZE = 22;
 
     protected $faker;
+    private TeamGenerator $teamGenerator;
 
     public function __construct(private PlayersCollection $players)
     {
         $this->faker = Faker::create();
+        $this->teamGenerator = new TeamGenerator($players);
     }
 
     public function generateTeams(): Collection
     {
         $teams = collect([])
-            ->times($this->getTeamNumberWithGoalies())
+            ->times($this->teamGenerator->getTeamNumberWithGoalies())
             ->map(function () {
                 return [
                     'players' => collect(),
@@ -31,7 +31,7 @@ class TeamsRepository
             ->recursive();
 
         $players = $this->players->sorted();
-        $maxPlayers = $this->maxTeamPlayers();
+        $maxPlayers = $this->teamGenerator->maxTeamPlayers();
 
         foreach ($players as $player) {
             // re-sort teams before each assignment, assigning next best player to lowest ranked team
@@ -60,49 +60,8 @@ class TeamsRepository
     /**
      * Generate random team name
      */
-    protected function generateTeamName(): string
+    public function generateTeamName(): string
     {
         return $this->faker->company;
-    }
-
-    /**
-     * Return number of teams we can generate
-     * with at least one goalie
-     */
-    protected function getTeamNumberWithGoalies(): int
-    {
-        return min($this->players->goalies()->count(), $this->getMaximumPossibleTeams());
-    }
-
-    /**
-     * Figure out how many teams we will be able to generate
-     * based on the players we have
-     */
-    protected function getMaximumPossibleTeams(): int
-    {
-        return collect($this->teamSizes())
-            ->map(function ($value) {
-                return (int)floor($this->players->count() / $value);
-            })
-            ->reject(function ($value) {
-                return $value % 2 !== 0;
-            })
-            ->max();
-    }
-
-    /**
-     * Return maximum number of team players
-     */
-    protected function maxTeamPlayers(): int
-    {
-        return max($this->teamSizes());
-    }
-
-    /**
-     * Get available range for team size
-     */
-    protected function teamSizes(): array
-    {
-        return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
     }
 }
