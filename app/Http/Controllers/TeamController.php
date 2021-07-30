@@ -10,7 +10,7 @@ class TeamController extends Controller
 {
     public function index(Request $request)
     {
-        $players = User::ofPlayers()->get();
+        $players = User::players();
 
         $teams = (new TeamsRepository($players))->generateTeams();
 

@@ -31,7 +31,7 @@ class PlayersIntegrityTest extends TestCase
         Then check that there are at least as many players who can play goalie as there are teams
         */
 
-        $players = User::ofPlayers()->get();
+        $players = User::players();
 
         $teams = (new TeamsRepository($players))->generateTeams();
 
@@ -60,7 +60,7 @@ class PlayersIntegrityTest extends TestCase
      */
     public function it_sorts_players_by_ranking_desc_and_excludes_goalies()
     {
-        $players = User::ofPlayers()->get();
+        $players = User::players();
         $goalies = $players->where('can_play_goalie', 1);
         $instance = new TeamsRepository($players);
         $result = $instance->playersSortedByRank($players, $goalies);

@@ -21,6 +21,11 @@ class User extends Model
         return $query->where('user_type', 'player');
     }
 
+    public static function players(): PlayersCollection
+    {
+        return new PlayersCollection(self::ofPlayers()->get());
+    }
+
     public function getIsGoalieAttribute(): bool
     {
         return (bool) $this->can_play_goalie;

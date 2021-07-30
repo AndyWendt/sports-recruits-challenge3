@@ -12,9 +12,8 @@ class TeamsRepository
     const MAX_TEAM_SIZE = 22;
 
     protected $faker;
-    public function __construct(protected Collection $players)
+    public function __construct(private PlayersCollection $players)
     {
-        $this->players = new PlayersCollection($this->players);
         $this->faker = Faker::create();
     }
 
