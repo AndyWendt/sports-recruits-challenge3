@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 class TeamSize
 {
-    public const MIN_TEAM_SIZE = 18;
-    public const MAX_TEAM_SIZE = 22;
+    public const MIN = 18;
+    public const MAX = 22;
 
     public function __construct(private $players) {}
 
@@ -31,7 +31,7 @@ class TeamSize
      */
     protected function sizeRange(): array
     {
-        return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
+        return range(static::MIN, static::MAX);
     }
 
     /**

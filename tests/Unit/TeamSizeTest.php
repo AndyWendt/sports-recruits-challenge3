@@ -16,7 +16,7 @@ class TeamSizeTest extends TestCase
     {
         $instance = new TeamSize(new PlayersCollection([]));
         $result = $instance->max();
-        $this->assertSame(TeamSize::MAX_TEAM_SIZE, $result);
+        $this->assertSame(TeamSize::MAX, $result);
     }
 
     /**
