@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repositories\TeamGenerator;
 use Faker\Factory as Faker;
 
 class Team
@@ -31,5 +32,15 @@ class Team
     public function sum()
     {
         return $this->players->sum('ranking');
+    }
+
+    public function canAddPlayer()
+    {
+        return $this->players->count() < TeamGenerator::MAX_TEAM_SIZE;
+    }
+
+    public function add($player)
+    {
+        $this->players->push($player);
     }
 }

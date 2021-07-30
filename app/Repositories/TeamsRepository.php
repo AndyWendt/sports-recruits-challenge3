@@ -29,10 +29,10 @@ class TeamsRepository
                 return ($a->sum() < $b->sum()) ? -1 : 1;
             });
 
-            $teamPlayers = $teams->first()->players();
+            $team = $teams->first();
 
-            if (count($teamPlayers) < $this->teamGenerator->maxTeamPlayers()) {
-                $teamPlayers->push($player);
+            if ($team->canAddPlayer()) {
+                $team->add(player: $player);
             }
         }
 
