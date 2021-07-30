@@ -23,9 +23,7 @@ class TeamsRepository
             ->times($this->teamGenerator->getTeamNumberWithGoalies())
             ->map(fn() => Team::instance());
 
-        $players = $this->players->sorted();
-
-        foreach ($players as $player) {
+        foreach ($this->players->sorted() as $player) {
             // re-sort teams before each assignment, assigning next best player to lowest ranked team
             $teams = $teams->sort(function ($a, $b) {
                 return ($a->sum() < $b->sum()) ? -1 : 1;
