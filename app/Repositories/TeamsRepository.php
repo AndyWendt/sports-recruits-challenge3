@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\PlayersCollection;
-use Faker\Factory as Faker;
+use App\Team;
 use Illuminate\Support\Collection;
 
 class TeamsRepository
@@ -14,7 +14,6 @@ class TeamsRepository
 
     public function __construct(private PlayersCollection $players)
     {
-        $this->faker = Faker::create();
         $this->teamGenerator = new TeamGenerator($players);
     }
 
@@ -22,12 +21,7 @@ class TeamsRepository
     {
         $teams = collect([])
             ->times($this->teamGenerator->getTeamNumberWithGoalies())
-            ->map(function () {
-                return [
-                    'players' => collect(),
-                    'name' => $this->generateTeamName()
-                ];
-            })
+            ->map(fn() => Team::instance()->toArray())
             ->recursive();
 
         $players = $this->players->sorted();
@@ -55,13 +49,5 @@ class TeamsRepository
         });
 
         return $teams;
-    }
-
-    /**
-     * Generate random team name
-     */
-    public function generateTeamName(): string
-    {
-        return $this->faker->company;
     }
 }
