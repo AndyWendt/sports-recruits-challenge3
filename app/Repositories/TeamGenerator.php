@@ -9,7 +9,7 @@ class TeamGenerator
     public const MIN_TEAM_SIZE = 18;
     public const MAX_TEAM_SIZE = 22;
 
-    public function __construct(private PlayersCollection $players) {}
+    public function __construct(private $players) {}
 
     /**
      * Return maximum number of team players
