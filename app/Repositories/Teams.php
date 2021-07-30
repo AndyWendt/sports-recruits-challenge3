@@ -6,7 +6,7 @@ use App\PlayersCollection;
 use App\Team;
 use Illuminate\Support\Collection;
 
-class TeamsRepository
+class Teams
 {
     private TeamSize $teamSize;
 
@@ -15,7 +15,7 @@ class TeamsRepository
         $this->teamSize = new TeamSize($players);
     }
 
-    public function generateTeams(): Collection
+    public function generate(): Collection
     {
         $teams = collect([])
             ->times($this->teamSize->getTeamNumberWithGoalies())

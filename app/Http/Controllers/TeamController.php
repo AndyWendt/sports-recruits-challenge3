@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\TeamsRepository;
+use App\Repositories\Teams;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class TeamController extends Controller
     {
         $players = User::players();
 
-        $teams = (new TeamsRepository($players))->generateTeams();
+        $teams = (new Teams($players))->generate();
 
     	return view('teams', compact('teams'));
     }

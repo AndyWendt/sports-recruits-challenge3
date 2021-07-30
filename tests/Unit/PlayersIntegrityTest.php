@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Repositories\TeamsRepository;
+use App\Repositories\Teams;
 use App\User;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class PlayersIntegrityTest extends TestCase
 
         $players = User::players();
 
-        $teams = (new TeamsRepository($players))->generateTeams();
+        $teams = (new Teams($players))->generate();
 
         // Check even number of teams
         $this->assertTrue($teams->isEven());
