@@ -8,8 +8,6 @@ use Illuminate\Support\Collection;
 
 class TeamsRepository
 {
-
-    protected $faker;
     private TeamGenerator $teamGenerator;
 
     public function __construct(private PlayersCollection $players)
