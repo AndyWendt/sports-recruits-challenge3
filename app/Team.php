@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Repositories\TeamGenerator;
+use App\Repositories\TeamSize;
 use Faker\Factory as Faker;
 
 class Team
@@ -36,7 +36,7 @@ class Team
 
     public function canAddPlayer()
     {
-        return $this->players->count() < TeamGenerator::MAX_TEAM_SIZE;
+        return $this->players->count() < TeamSize::MAX_TEAM_SIZE;
     }
 
     public function add($player)

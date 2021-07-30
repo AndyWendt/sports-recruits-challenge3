@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\PlayersCollection;
-
-class TeamGenerator
+class TeamSize
 {
     public const MIN_TEAM_SIZE = 18;
     public const MAX_TEAM_SIZE = 22;

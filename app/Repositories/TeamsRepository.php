@@ -8,17 +8,17 @@ use Illuminate\Support\Collection;
 
 class TeamsRepository
 {
-    private TeamGenerator $teamGenerator;
+    private TeamSize $teamSize;
 
     public function __construct(private PlayersCollection $players)
     {
-        $this->teamGenerator = new TeamGenerator($players);
+        $this->teamSize = new TeamSize($players);
     }
 
     public function generateTeams(): Collection
     {
         $teams = collect([])
-            ->times($this->teamGenerator->getTeamNumberWithGoalies())
+            ->times($this->teamSize->getTeamNumberWithGoalies())
             ->map(fn() => Team::instance());
 
         $this->players
