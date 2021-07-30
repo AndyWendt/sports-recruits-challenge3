@@ -23,18 +23,18 @@ class TeamsRepository
             ->times($this->teamGenerator->getTeamNumberWithGoalies())
             ->map(fn() => Team::instance());
 
-        foreach ($this->players->sorted() as $player) {
-            // re-sort teams before each assignment, assigning next best player to lowest ranked team
-            $teams = $teams->sort(function ($a, $b) {
-                return ($a->sum() < $b->sum()) ? -1 : 1;
+        $this->players
+            ->sorted()
+            ->each(function ($player) use ($teams) {
+                // re-sort teams before each assignment, assigning next best player to lowest ranked team
+                $teams = $teams->sort(function ($a, $b) {
+                    return ($a->sum() < $b->sum()) ? -1 : 1;
+                });
+
+                $team = $teams->first();
+
+                if ($team->canAddPlayer()) $team->add(player: $player);
             });
-
-            $team = $teams->first();
-
-            if ($team->canAddPlayer()) {
-                $team->add(player: $player);
-            }
-        }
 
         return $teams;
     }
