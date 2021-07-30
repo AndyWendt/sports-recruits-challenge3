@@ -35,7 +35,7 @@ class TeamsRepository
 
 
             if (count($teamPlayers) < $maxPlayers) {
-                $teamPlayers->push(collect($player->only(['fullname', 'isGoalie', 'ranking'])));
+                $teamPlayers->push($player);
             }
         }
 

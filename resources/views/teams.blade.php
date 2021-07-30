@@ -16,18 +16,18 @@
 			</thead>
 			<tbody>
 				@foreach($team->players() as $player)
-					<tr style="{{ $player->get('isGoalie') ? 'font-weight:bold;' : '' }}">
+					<tr style="{{ $player->isGoalie ? 'font-weight:bold;' : '' }}">
 						<td>
 							{{ $loop->iteration }}
 						</td>
 						<td>
-							{{ $player->get('fullname') }}
+							{{ $player->fullname }}
 						</td>
 						<td>
-							{{ $player->get('isGoalie') ? 'Yes' : 'No' }}
+							{{ $player->isGoalie ? 'Yes' : 'No' }}
 						</td>
 						<td>
-							{{ $player->get('ranking') }}
+							{{ $player->ranking }}
 						</td>
 					</tr>
 				@endforeach
