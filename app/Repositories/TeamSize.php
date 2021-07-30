@@ -40,13 +40,12 @@ class TeamSize
      */
     protected function maxPossibleTeams(): int
     {
+        $numberOfTeamsForTeamSize = fn($teamSize) => (int)floor($this->players->count() / $teamSize);
+        $oddNumberOfTeams = fn($numberOfTeams) => $numberOfTeams % 2 !== 0;
+
         return collect($this->sizeRange())
-            ->map(function ($value) {
-                return (int)floor($this->players->count() / $value);
-            })
-            ->reject(function ($value) {
-                return $value % 2 !== 0;
-            })
+            ->map($numberOfTeamsForTeamSize)
+            ->reject($oddNumberOfTeams)
             ->max();
     }
 }
