@@ -40,7 +40,7 @@ class TeamSize
      */
     protected function maxPossibleTeams(): int
     {
-        $numberOfTeamsForTeamSize = fn($teamSize) => (int)floor($this->players->count() / $teamSize);
+        $numberOfTeamsForTeamSize = fn($teamSize) => (int) floor($this->players->count() / $teamSize);
         $oddNumberOfTeams = fn($numberOfTeams) => $numberOfTeams % 2 !== 0;
 
         return collect($this->sizeRange())
