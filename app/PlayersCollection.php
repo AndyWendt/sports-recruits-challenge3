@@ -8,7 +8,7 @@ class PlayersCollection extends Collection
 {
     public function goalies()
     {
-        return $this->filter(fn($player) => $player->isGoalie);
+        return $this->filter(fn($player) => $player->isGoalie)->sortByDesc('ranking');
     }
 
     public function ranked()

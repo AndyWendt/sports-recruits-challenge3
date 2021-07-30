@@ -71,7 +71,7 @@ class TeamsRepository
      */
     protected function getSortedPlayers(): Collection
     {
-        $goaliePlayers = $this->players->goalies()->sortByDesc('ranking');
+        $goaliePlayers = $this->players->goalies();
 
         $playersSortedByRanking = $this->players->ranked();
 

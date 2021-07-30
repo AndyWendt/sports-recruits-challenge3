@@ -14,11 +14,11 @@ class PlayersCollectionTest extends TestCase
      */
     public function it_determines_the_goalies()
     {
-        $instance = User::players();
-        $result = $instance->goalies();
+        $players = User::ofPlayers()->get();
+        $result = (new PlayersCollection($players->reverse()))->goalies();
 
-        $goalies = $instance->filter(fn($player) => $player->isGoalie);
-        $this->assertEquals($goalies->toArray(), $result->toArray());
+        $expected = $players->filter(fn($player) => $player->isGoalie)->sortByDesc('ranking');
+        $this->assertEquals($expected->pluck('ranking')->toArray(), $result->pluck('ranking')->toArray());
     }
 
     /**
