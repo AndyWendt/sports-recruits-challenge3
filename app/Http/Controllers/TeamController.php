@@ -12,7 +12,7 @@ class TeamController extends Controller
     {
         $players = User::players();
 
-        $teams = (new Teams($players))->generate();
+        $teams = (Teams::from($players))->generate();
 
     	return view('teams', compact('teams'));
     }

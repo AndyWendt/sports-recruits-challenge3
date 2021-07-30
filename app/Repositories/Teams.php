@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 
 class Teams
 {
-    private TeamSize $teamSize;
-
-    public function __construct(private PlayersCollection $players)
+    public static function from(PlayersCollection $players)
     {
-        $this->teamSize = new TeamSize($players);
+        return new self($players, new TeamSize($players));
     }
+
+    public function __construct(private PlayersCollection $players, private TeamSize $teamSize) {}
 
     public function generate(): Collection
     {
