@@ -71,7 +71,7 @@ class TeamsRepository
      */
     protected function getSortedPlayers(): Collection
     {
-    	$goaliePlayers = $this->getGoalies()->sortByDesc('ranking');
+    	$goaliePlayers = $this->players->goalies()->sortByDesc('ranking');
 
         $playersSortedByRanking = $this->playersSortedByRank($this->players, $goaliePlayers);
 
@@ -100,15 +100,7 @@ class TeamsRepository
      */
     protected function getTeamNumberWithGoalies(): int
     {
-    	return min($this->getGoalies()->count(), $this->getMaximumPossibleTeams());
-    }
-
-    /**
-     * Filter players to return only goalies
-     */
-    protected function getGoalies(): Collection
-    {
-        return $this->players->goalies();
+    	return min($this->players->goalies()->count(), $this->getMaximumPossibleTeams());
     }
 
     /**
