@@ -24,17 +24,16 @@ class TeamsRepository
             ->map(fn() => Team::instance());
 
         $players = $this->players->sorted();
-        $maxPlayers = $this->teamGenerator->maxTeamPlayers();
 
         foreach ($players as $player) {
             // re-sort teams before each assignment, assigning next best player to lowest ranked team
             $teams = $teams->sort(function ($a, $b) {
                 return ($a->sum() < $b->sum()) ? -1 : 1;
             });
+
             $teamPlayers = $teams->first()->players();
 
-
-            if (count($teamPlayers) < $maxPlayers) {
+            if (count($teamPlayers) < $this->teamGenerator->maxTeamPlayers()) {
                 $teamPlayers->push($player);
             }
         }
