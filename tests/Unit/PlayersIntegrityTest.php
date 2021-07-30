@@ -40,14 +40,14 @@ class PlayersIntegrityTest extends TestCase
 
         // Check to make sure all teams are within the allowed range of players
         $outOfPlayersRange = $teams->filter(function ($value) {
-            return $value->get('players')->count() < 18 || $value->get('players')->count() > 22;
+            return $value->players()->count() < 18 || $value->players()->count() > 22;
         })->all();
 
         $this->assertEmpty($outOfPlayersRange);
 
         // Check to make sure each team has at least one goalie
         $missingGoalie = $teams->filter(function ($value) {
-            return $value->get('players')->where('isGoalie')->isEmpty();
+            return $value->players()->where('isGoalie')->isEmpty();
         })->all();
 
 

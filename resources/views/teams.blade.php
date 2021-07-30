@@ -2,10 +2,10 @@
 
 @if($teams->isNotEmpty())
 	@foreach($teams as $team)
-		<h2>{{ $team->get('name') }}</h2>
-		<h3>Average: {{ number_format($team->get('average'), 3) }}</h3>
+		<h2>{{ $team->name() }}</h2>
+		<h3>Average: {{ $team->average() }}</h3>
 		<br/>
-		<table>	
+		<table>
 			<thead>
 				<tr>
 					<th>#</th>
@@ -15,7 +15,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($team->get('players') as $player)
+				@foreach($team->players() as $player)
 					<tr style="{{ $player->get('isGoalie') ? 'font-weight:bold;' : '' }}">
 						<td>
 							{{ $loop->iteration }}
@@ -35,7 +35,7 @@
 			<tfoot>
 				<tr>
 					<th colspan="3"></th>
-					<th style="text-align:left;">{{ $team->get('rankSum') }}</th>
+					<th style="text-align:left;">{{ $team->sum() }}</th>
 				</tr>
 			</tfoot>
 		</table>

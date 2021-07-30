@@ -13,11 +13,23 @@ class Team
 
     public function __construct(private $name, private $players) {}
 
-    public function toArray()
+    public function players()
     {
-        return [
-            'name' => $this->name,
-            'players' => $this->players,
-        ];
+        return $this->players;
+    }
+
+    public function name()
+    {
+        return $this->name;
+    }
+
+    public function average()
+    {
+        return number_format($this->players->avg('ranking'), 3);
+    }
+
+    public function sum()
+    {
+        return $this->players->sum('ranking');
     }
 }

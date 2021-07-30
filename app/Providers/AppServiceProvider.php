@@ -14,16 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Collection::macro('recursive', function () {
-            return $this->map(function ($value) {
-                if (is_array($value) || is_object($value)) {
-                    return collect($value)->recursive();
-                }
-        
-                return $value;
-            });
-        });
-
         Collection::macro('isEven', function () {
             return $this->count() % 2 === 0;
         });
