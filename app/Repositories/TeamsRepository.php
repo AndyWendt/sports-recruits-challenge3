@@ -27,11 +27,9 @@ class TeamsRepository
             ->sorted()
             ->each(function ($player) use ($teams) {
                 // re-sort teams before each assignment, assigning next best player to lowest ranked team
-                $teams = $teams->sort(function ($a, $b) {
+                $team = $teams->sort(function ($a, $b) {
                     return ($a->sum() < $b->sum()) ? -1 : 1;
-                });
-
-                $team = $teams->first();
+                })->first();
 
                 if ($team->canAddPlayer()) $team->add(player: $player);
             });
