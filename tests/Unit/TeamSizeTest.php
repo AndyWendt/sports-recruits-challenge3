@@ -15,7 +15,7 @@ class TeamSizeTest extends TestCase
     public function it_determines_the_max_team_players()
     {
         $instance = new TeamSize(new PlayersCollection([]));
-        $result = $instance->maxTeamPlayers();
+        $result = $instance->max();
         $this->assertSame(TeamSize::MAX_TEAM_SIZE, $result);
     }
 
@@ -26,7 +26,7 @@ class TeamSizeTest extends TestCase
     {
         $goaliesCount = 2;
         $instance = new TeamSize($this->playersStub(playersCount: 42, goaliesCount: $goaliesCount));
-        $result = $instance->getTeamNumberWithGoalies();
+        $result = $instance->numberOfTeams();
         $this->assertSame($goaliesCount, $result);
     }
 
@@ -36,7 +36,7 @@ class TeamSizeTest extends TestCase
     public function it_determines_the_number_of_teams_possible()
     {
         $instance = new TeamSize($this->playersStub(playersCount: 88, goaliesCount: 6));
-        $result = $instance->getTeamNumberWithGoalies();
+        $result = $instance->numberOfTeams();
         $this->assertSame(4, $result);
     }
 
@@ -46,7 +46,7 @@ class TeamSizeTest extends TestCase
     public function it_ensures_there_are_an_even_number_of_teams()
     {
         $instance = new TeamSize($this->playersStub(playersCount: 240, goaliesCount: 20));
-        $result = $instance->getTeamNumberWithGoalies();
+        $result = $instance->numberOfTeams();
         $this->assertSame(12, $result);
     }
 

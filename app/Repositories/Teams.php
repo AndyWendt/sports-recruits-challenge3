@@ -18,7 +18,7 @@ class Teams
     public function generate(): Collection
     {
         $teams = collect([])
-            ->times($this->teamSize->getTeamNumberWithGoalies())
+            ->times($this->teamSize->numberOfTeams())
             ->map(fn() => Team::instance());
 
         $this->addPlayersToTeams($teams);

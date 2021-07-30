@@ -12,24 +12,24 @@ class TeamSize
     /**
      * Return maximum number of team players
      */
-    public function maxTeamPlayers(): int
+    public function max(): int
     {
-        return max($this->teamSizes());
+        return max($this->sizeRange());
     }
 
     /**
      * Return number of teams we can generate
      * with at least one goalie
      */
-    public function getTeamNumberWithGoalies(): int
+    public function numberOfTeams(): int
     {
-        return min($this->players->goalies()->count(), $this->getMaximumPossibleTeams());
+        return min($this->players->goalies()->count(), $this->maxPossibleTeams());
     }
 
     /**
      * Get available range for team size
      */
-    protected function teamSizes(): array
+    protected function sizeRange(): array
     {
         return range(static::MIN_TEAM_SIZE, static::MAX_TEAM_SIZE);
     }
@@ -38,9 +38,9 @@ class TeamSize
      * Figure out how many teams we will be able to generate
      * based on the players we have
      */
-    protected function getMaximumPossibleTeams(): int
+    protected function maxPossibleTeams(): int
     {
-        return collect($this->teamSizes())
+        return collect($this->sizeRange())
             ->map(function ($value) {
                 return (int)floor($this->players->count() / $value);
             })
