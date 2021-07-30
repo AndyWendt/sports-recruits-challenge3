@@ -12,6 +12,7 @@ class TeamsRepository
     const MAX_TEAM_SIZE = 22;
 
     protected $faker;
+
     public function __construct(private PlayersCollection $players)
     {
         $this->faker = Faker::create();
@@ -20,19 +21,19 @@ class TeamsRepository
     public function generateTeams(): Collection
     {
         $teams = collect([])
-                ->times($this->getTeamNumberWithGoalies())
-                ->map(function() {
-                    return [
-                        'players' => collect(),
-                        'name' => $this->generateTeamName()
-                    ];
-                })
-                ->recursive();
+            ->times($this->getTeamNumberWithGoalies())
+            ->map(function () {
+                return [
+                    'players' => collect(),
+                    'name' => $this->generateTeamName()
+                ];
+            })
+            ->recursive();
 
         $players = $this->getSortedPlayers();
         $maxPlayers = $this->maxTeamPlayers();
 
-        foreach($players as $player) {
+        foreach ($players as $player) {
             // re-sort teams before each assignment, assigning next best player to lowest ranked team
             $teams = $teams->sort(function ($a, $b) {
                 return ($a->get('players')->sum('ranking') < $b->get('players')->sum('ranking')) ? -1 : 1;
@@ -40,20 +41,20 @@ class TeamsRepository
             $teamPlayers = $teams->first()->get('players');
 
 
-            if(count($teamPlayers) < $maxPlayers) {
-				$teamPlayers->push(collect($player->only(['fullname', 'isGoalie', 'ranking'])));
-			}
+            if (count($teamPlayers) < $maxPlayers) {
+                $teamPlayers->push(collect($player->only(['fullname', 'isGoalie', 'ranking'])));
+            }
         }
 
         // Add additional required data about the teams based on players
-        $teams = $teams->map(function($value) {
+        $teams = $teams->map(function ($value) {
             return $value->merge([
                 'average' => $value->get('players')->avg('ranking'),
                 'rankSum' => $value->get('players')->sum('ranking')
             ]);
         });
 
-		return $teams;
+        return $teams;
     }
 
     /**
@@ -70,11 +71,11 @@ class TeamsRepository
      */
     protected function getSortedPlayers(): Collection
     {
-    	$goaliePlayers = $this->players->goalies()->sortByDesc('ranking');
+        $goaliePlayers = $this->players->goalies()->sortByDesc('ranking');
 
         $playersSortedByRanking = $this->players->ranked();
 
-		return $goaliePlayers->concat($playersSortedByRanking);
+        return $goaliePlayers->concat($playersSortedByRanking);
     }
 
     /**
@@ -83,7 +84,7 @@ class TeamsRepository
      */
     protected function getTeamNumberWithGoalies(): int
     {
-    	return min($this->players->goalies()->count(), $this->getMaximumPossibleTeams());
+        return min($this->players->goalies()->count(), $this->getMaximumPossibleTeams());
     }
 
     /**
@@ -93,13 +94,13 @@ class TeamsRepository
     protected function getMaximumPossibleTeams(): int
     {
         return collect($this->teamSizes())
-                ->map(function($value) {
-                    return (int) floor($this->players->count() / $value);
-                })
-                ->reject(function($value) {
-                    return $value % 2 !== 0;
-                })
-                ->max();
+            ->map(function ($value) {
+                return (int)floor($this->players->count() / $value);
+            })
+            ->reject(function ($value) {
+                return $value % 2 !== 0;
+            })
+            ->max();
     }
 
     /**
@@ -107,7 +108,7 @@ class TeamsRepository
      */
     protected function maxTeamPlayers(): int
     {
-    	return max($this->teamSizes());
+        return max($this->teamSizes());
     }
 
     /**

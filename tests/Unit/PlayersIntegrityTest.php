@@ -14,17 +14,17 @@ class PlayersIntegrityTest extends TestCase
      *
      * @return void
      */
-    public function testGoaliePlayersExist ()
+    public function testGoaliePlayersExist()
     {
-/*
-		Check there are players that have can_play_goalie set as 1
-*/
-		$result = User::where('user_type', 'player')->where('can_play_goalie', 1)->count();
-		$this->assertTrue($result > 1);
+        /*
+         * Check there are players that have can_play_goalie set as 1
+        */
+        $result = User::where('user_type', 'player')->where('can_play_goalie', 1)->count();
+        $this->assertTrue($result > 1);
     }
 
     // Test teams generation functional.
-    public function testAtLeastOneGoaliePlayerPerTeam ()
+    public function testAtLeastOneGoaliePlayerPerTeam()
     {
         /*
         calculate how many teams can be made so that there is an even number of teams and they each have between 18-22 players.
@@ -39,17 +39,16 @@ class PlayersIntegrityTest extends TestCase
         $this->assertTrue($teams->isEven());
 
         // Check to make sure all teams are within the allowed range of players
-        $outOfPlayersRange = $teams->filter(function($value) {
+        $outOfPlayersRange = $teams->filter(function ($value) {
             return $value->get('players')->count() < 18 || $value->get('players')->count() > 22;
         })->all();
 
         $this->assertEmpty($outOfPlayersRange);
 
         // Check to make sure each team has at least one goalie
-        $missingGoalie = $teams->filter(function($value) {
+        $missingGoalie = $teams->filter(function ($value) {
             return $value->get('players')->where('isGoalie')->isEmpty();
         })->all();
-
 
 
         $this->assertEmpty($missingGoalie);

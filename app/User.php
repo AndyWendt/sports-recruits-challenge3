@@ -28,7 +28,7 @@ class User extends Model
 
     public function getIsGoalieAttribute(): bool
     {
-        return (bool) $this->can_play_goalie;
+        return (bool)$this->can_play_goalie;
     }
 
     public function getFullnameAttribute(): string
