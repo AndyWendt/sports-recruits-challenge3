@@ -8,7 +8,7 @@ class PlayersCollection extends Collection
 {
     public function goalies()
     {
-        return $this->where('can_play_goalie', 1);
+        return $this->filter(fn($player) => $player->isGoalie);
     }
 
     public function ranked()
