@@ -9,7 +9,7 @@ class Team
 {
     public static function instance()
     {
-        return new self(name: Faker::create()->company, players: collect());
+        return new self(name: Faker::create()->company, players: new PlayersCollection());
     }
 
     public function __construct(private $name, private $players) {}
@@ -26,12 +26,12 @@ class Team
 
     public function average()
     {
-        return number_format($this->players->avg('ranking'), 3);
+        return number_format($this->players->averageRanking(), 3);
     }
 
     public function sum()
     {
-        return $this->players->sum('ranking');
+        return $this->players->sumRanking();
     }
 
     public function canAddPlayer()

@@ -21,4 +21,14 @@ class PlayersCollection extends Collection
     {
         return $this->goalies()->concat($this->ranked());
     }
+
+    public function averageRanking()
+    {
+        return $this->avg('ranking');
+    }
+
+    public function sumRanking()
+    {
+        return $this->sum('ranking');
+    }
 }
