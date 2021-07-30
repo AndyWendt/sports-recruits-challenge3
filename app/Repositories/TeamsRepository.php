@@ -21,6 +21,16 @@ class TeamsRepository
             ->times($this->teamSize->getTeamNumberWithGoalies())
             ->map(fn() => Team::instance());
 
+        $this->addPlayersToTeams($teams);
+
+        return $teams;
+    }
+
+    /**
+     * @param Collection $teams
+     */
+    protected function addPlayersToTeams(Collection $teams): void
+    {
         $this->players
             ->sorted()
             ->each(function ($player) use ($teams) {
@@ -29,7 +39,5 @@ class TeamsRepository
 
                 if ($team->canAddPlayer()) $team->add(player: $player);
             });
-
-        return $teams;
     }
 }
