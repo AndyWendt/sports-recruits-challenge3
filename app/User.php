@@ -20,12 +20,12 @@ class User extends Model
     {
         return $query->where('user_type', 'player');
     }
-    
+
     public function getIsGoalieAttribute(): bool
     {
         return (bool) $this->can_play_goalie;
     }
-    
+
     public function getFullnameAttribute(): string
     {
         return Str::title($this->first_name . ' ' . $this->last_name);

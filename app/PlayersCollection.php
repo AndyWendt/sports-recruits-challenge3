@@ -13,6 +13,7 @@ class PlayersCollection extends Collection
 
     public function ranked()
     {
-        return $this->whereNotIn('id', $this->goalies()->pluck('id')->all())->sortByDesc('ranking');
+        $goalieIds = $this->goalies()->pluck('id')->all();
+        return $this->whereNotIn('id', $goalieIds)->sortByDesc('ranking');
     }
 }
