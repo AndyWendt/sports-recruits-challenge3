@@ -30,7 +30,7 @@ class TeamsRepository
             })
             ->recursive();
 
-        $players = $this->getSortedPlayers();
+        $players = $this->players->sorted();
         $maxPlayers = $this->maxTeamPlayers();
 
         foreach ($players as $player) {
@@ -63,19 +63,6 @@ class TeamsRepository
     protected function generateTeamName(): string
     {
         return $this->faker->company;
-    }
-
-    /**
-     * Return a collection of sorted players
-     * goalies first
-     */
-    protected function getSortedPlayers(): Collection
-    {
-        $goaliePlayers = $this->players->goalies();
-
-        $playersSortedByRanking = $this->players->ranked();
-
-        return $goaliePlayers->concat($playersSortedByRanking);
     }
 
     /**
