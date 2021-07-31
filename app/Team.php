@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\Repositories\TeamSize;
+use App\TeamSize;
 use Faker\Factory as Faker;
 
 class Team
 {
     public static function instance()
     {
-        return new self(name: Faker::create()->company, players: new PlayersCollection());
+        return new self(name: Faker::create()->company, players: new Players());
     }
 
     public function __construct(private $name, private $players) {}

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App;
+
+use function collect;
 
 class TeamSize
 {

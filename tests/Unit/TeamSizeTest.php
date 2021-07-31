@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\PlayersCollection;
-use App\Repositories\TeamSize;
+use App\Players;
+use App\TeamSize;
 use Tests\TestCase;
 
 
@@ -14,7 +14,7 @@ class TeamSizeTest extends TestCase
      */
     public function it_determines_the_max_team_players()
     {
-        $instance = new TeamSize(new PlayersCollection([]));
+        $instance = new TeamSize(new Players([]));
         $result = $instance->max();
         $this->assertSame(TeamSize::MAX, $result);
     }

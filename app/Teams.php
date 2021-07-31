@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Repositories;
+namespace App;
 
 use App\AssignPlayers;
-use App\PlayersCollection;
+use App\Players;
+use App\TeamSize;
 use App\Team;
 use Illuminate\Support\Collection;
 
 class Teams extends Collection
 {
-    public static function from(PlayersCollection $players)
+    public static function from(Players $players)
     {
 
         $teams = (new self())

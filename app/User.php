@@ -24,9 +24,9 @@ class User extends Model
             ->with('rankings');
     }
 
-    public static function players(): PlayersCollection
+    public static function players(): Players
     {
-        return new PlayersCollection(self::ofPlayers()->get());
+        return new Players(self::ofPlayers()->get());
     }
 
     public function getIsGoalieAttribute(): bool

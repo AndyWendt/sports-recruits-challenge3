@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Teams;
+use App\Teams;
 use App\User;
 use Illuminate\Http\Request;
 

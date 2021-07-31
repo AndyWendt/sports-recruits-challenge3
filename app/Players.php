@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 
-class PlayersCollection extends Collection
+class Players extends Collection
 {
     public function goalies(): self
     {

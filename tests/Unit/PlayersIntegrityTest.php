@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Repositories\Teams;
+use App\Teams;
 use App\User;
 use Tests\TestCase;
 

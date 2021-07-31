@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\PlayersCollection;
+use App\Players;
 use App\User;
 use Tests\TestCase;
 
 
-class PlayersCollectionTest extends TestCase
+class PlayersTest extends TestCase
 {
     /**
      * @test
@@ -15,7 +15,7 @@ class PlayersCollectionTest extends TestCase
     public function it_determines_the_goalies()
     {
         $players = User::ofPlayers()->get();
-        $result = (new PlayersCollection($players->reverse()))->goalies();
+        $result = (new Players($players->reverse()))->goalies();
 
         $expected = $players->filter(fn($player) => $player->isGoalie)->sortByDesc('ranking');
         $this->assertEquals($expected->pluck('ranking')->toArray(), $result->pluck('ranking')->toArray());
