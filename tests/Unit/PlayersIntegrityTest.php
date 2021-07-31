@@ -33,7 +33,7 @@ class PlayersIntegrityTest extends TestCase
 
         $players = User::players();
 
-        $teams = (Teams::from($players))->generate();
+        $teams = (Teams::from($players));
 
         // Check even number of teams
         $this->assertTrue($teams->isEven());

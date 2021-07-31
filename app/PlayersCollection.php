@@ -31,4 +31,16 @@ class PlayersCollection extends Collection
     {
         return $this->sum('ranking');
     }
+
+    public function assignTo($teams)
+    {
+        $this
+            ->sorted()
+            ->each(function ($player) use ($teams) {
+                // re-sort teams before each assignment, assigning next best player to lowest ranked team
+                $team = $teams->sort(fn($a, $b) => $a->sum() <=> $b->sum())->first();
+
+                if ($team->canAddPlayer()) $team->add(player: $player);
+            });
+    }
 }
