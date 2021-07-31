@@ -12,7 +12,6 @@ class Teams extends Collection
 {
     public static function from(Players $players)
     {
-
         $teams = (new self())
             ->times((new TeamSize($players))->numberOfTeams())
             ->map(fn() => Team::instance());
