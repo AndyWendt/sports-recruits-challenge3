@@ -10,6 +10,8 @@ class User extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['user_type', 'first_name', 'last_name'];
+
     /**
      * Players only local scope
      *
@@ -18,7 +20,8 @@ class User extends Model
      */
     public function scopeOfPlayers($query): Builder
     {
-        return $query->where('user_type', 'player');
+        return $query->where('user_type', 'player')
+            ->with('rankings');
     }
 
     public static function players(): PlayersCollection
@@ -34,5 +37,15 @@ class User extends Model
     public function getFullnameAttribute(): string
     {
         return Str::title($this->first_name . ' ' . $this->last_name);
+    }
+
+    public function getRankingAttribute()
+    {
+        return $this->rankings->sortByDesc('created_at')->first()->ranking ?? 0;
+    }
+
+    public function rankings()
+    {
+        return $this->hasMany(Ranking::class);
     }
 }

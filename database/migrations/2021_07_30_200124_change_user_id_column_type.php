@@ -14,7 +14,7 @@ class ChangeUserIdColumnType extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->change();
+            $table->bigIncrements('id')->change();
         });
     }
 

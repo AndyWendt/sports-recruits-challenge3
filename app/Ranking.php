@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Ranking extends Model
 {
     const UPDATED_AT = null;
-    protected $fillable = ['user_id', 'ranking'];
+    protected $fillable = ['user_id', 'ranking', 'created_at'];
 }
