@@ -17,6 +17,7 @@ class MovePlayerRankingsTest extends TestCase
      */
     public function it_moves_player_rankings()
     {
+        $this->markTestSkipped('using migrations instead to move the data');
         $exitCode = Artisan::call('move:player-rankings', []);
         $this->assertSame(0, $exitCode);
 
