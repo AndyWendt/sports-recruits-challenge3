@@ -16,7 +16,7 @@ class TeamTest extends TestCase
     {
         $instance = new Team('foo', User::players());
         $average = $instance->average();
-        $sum = $instance->sum();
+        $sum = $instance->ranking();
 
         $this->assertSame('3.071', $average);
         $this->assertSame(261, $sum);

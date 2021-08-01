@@ -35,7 +35,7 @@
 			<tfoot>
 				<tr>
 					<th colspan="3"></th>
-					<th style="text-align:left;">{{ $team->sum() }}</th>
+					<th style="text-align:left;">{{ $team->ranking() }}</th>
 				</tr>
 			</tfoot>
 		</table>

@@ -31,7 +31,7 @@ class Team
         return number_format($this->players->averageRanking(), 3);
     }
 
-    public function sum()
+    public function ranking()
     {
         return $this->players->sumRanking();
     }
