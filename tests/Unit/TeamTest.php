@@ -15,7 +15,7 @@ class TeamTest extends TestCase
     public function it_determines_the_team_stats()
     {
         $instance = new Team('foo', User::players());
-        $average = $instance->average();
+        $average = $instance->averagePlayerRanking();
         $sum = $instance->ranking();
 
         $this->assertSame('3.071', $average);

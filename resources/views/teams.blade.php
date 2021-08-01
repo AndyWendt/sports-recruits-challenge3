@@ -3,7 +3,7 @@
 @if($teams->isNotEmpty())
 	@foreach($teams as $team)
 		<h2>{{ $team->name() }}</h2>
-		<h3>Average: {{ $team->average() }}</h3>
+		<h3>Average: {{ $team->averagePlayerRanking() }}</h3>
 		<br/>
 		<table>
 			<thead>

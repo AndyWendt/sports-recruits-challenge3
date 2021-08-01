@@ -26,7 +26,7 @@ class Team
         return $this->name;
     }
 
-    public function average()
+    public function averagePlayerRanking()
     {
         return number_format($this->players->averageRanking(), 3);
     }
