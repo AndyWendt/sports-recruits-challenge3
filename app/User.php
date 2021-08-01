@@ -31,7 +31,7 @@ class User extends Model
 
     public function getIsGoalieAttribute(): bool
     {
-        return (bool)$this->can_play_goalie;
+        return (bool) $this->can_play_goalie;
     }
 
     public function getFullnameAttribute(): string
@@ -41,11 +41,15 @@ class User extends Model
 
     public function getRankingAttribute()
     {
-        return $this->rankings->sortByDesc('created_at')->first()->ranking ?? 0;
+        if (!$this->latestRanking) {
+            $this->latestRanking = $this->rankings->first()->ranking ?? 0;
+        }
+
+        return $this->latestRanking;
     }
 
     public function rankings()
     {
-        return $this->hasMany(Ranking::class);
+        return $this->hasMany(Ranking::class)->latest();
     }
 }
