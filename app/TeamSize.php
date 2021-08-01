@@ -11,28 +11,12 @@ class TeamSize
 
     public function __construct(private $players) {}
 
-    /**
-     * Return number of teams we can generate
-     * with at least one goalie
-     */
     public function numberOfTeams(): int
     {
         return min($this->players->goalies()->count(), $this->maxPossibleTeams());
     }
 
-    /**
-     * Get available range for team size
-     */
-    protected function sizeRange(): array
-    {
-        return range(static::MIN, static::MAX);
-    }
-
-    /**
-     * Figure out how many teams we will be able to generate
-     * based on the players we have
-     */
-    protected function maxPossibleTeams(): int
+    private function maxPossibleTeams(): int
     {
         $numberOfTeamsForTeamSize = fn($teamSize) => (int) floor($this->players->count() / $teamSize);
         $oddNumberOfTeams = fn($numberOfTeams) => $numberOfTeams % 2 !== 0;
@@ -41,5 +25,10 @@ class TeamSize
             ->map($numberOfTeamsForTeamSize)
             ->reject($oddNumberOfTeams)
             ->max();
+    }
+
+    private function sizeRange(): array
+    {
+        return range(static::MIN, static::MAX);
     }
 }
