@@ -29,7 +29,7 @@ class TeamDistributionTest extends TestCase
      */
     public function it_updates_rankings()
     {
-        $user = User::create(['user_type' => 'player', 'first_name' => 'foo', 'last_name' => 'bar', 'can_play_goalie' => 1]);
+        $user = factory(\App\User::class)->create();
 
         $this->post(sprintf('/ranking/%s', $user->id), ['value' => 3])->assertSuccessful();
         $this->post(sprintf('/ranking/%s', $user->id), ['value' => 4])->assertSuccessful();
