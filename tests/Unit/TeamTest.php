@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Players;
 use App\Team;
 use App\User;
 use Tests\TestCase;
@@ -27,7 +28,8 @@ class TeamTest extends TestCase
      */
     public function it_determines_if_you_cannot_add_a_player()
     {
-        $instance = new Team('foo', User::players());
+        $players = new Players(factory(\App\User::class, 40)->make());
+        $instance = new Team('foo', $players);
         $this->assertFalse($instance->canAddPlayer());
     }
 

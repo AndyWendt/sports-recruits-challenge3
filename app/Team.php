@@ -33,7 +33,7 @@ class Team
 
     public function ranking()
     {
-        return $this->players->sumRanking();
+        return $this->players->ranking();
     }
 
     public function canAddPlayer()

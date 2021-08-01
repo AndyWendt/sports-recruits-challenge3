@@ -16,29 +16,29 @@ class Players extends Collection
         return $this->avg('ranking');
     }
 
-    public function sumRanking()
+    public function ranking()
     {
         return $this->sum('ranking');
     }
 
-    public function assignTo($teams)
+    public function assignTo(Teams $teams)
     {
         $this
-            ->sorted()
+            ->rankedGoaliesAndPlayers()
             ->each(function ($player) use ($teams) {
                 $highestRankedTeam = $teams->highestRanked();
                 if ($highestRankedTeam->canAddPlayer()) $highestRankedTeam->add(player: $player);
             });
     }
 
-    private function ranked(): self
+    private function rankedGoaliesAndPlayers(): self
+    {
+        return $this->goalies()->concat($this->rankedPlayers());
+    }
+
+    private function rankedPlayers(): self
     {
         $goalieIds = $this->goalies()->pluck('id')->all();
         return $this->whereNotIn('id', $goalieIds)->sortByDesc('ranking');
-    }
-
-    private function sorted(): self
-    {
-        return $this->goalies()->concat($this->ranked());
     }
 }

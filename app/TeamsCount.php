@@ -7,7 +7,7 @@ use function range;
 
 class TeamsCount
 {
-    public function for($players): int
+    public function for(Players $players): int
     {
         return min($players->goalies()->count(), $this->maxPossibleTeams($players));
     }
