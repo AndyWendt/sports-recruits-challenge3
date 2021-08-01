@@ -75,8 +75,8 @@ class PlayersTest extends TestCase
 
         (new Players($players))->assignTo(new Teams([$team1, $team2]));
 
-        $this->assertCount(TeamSize::MAX_PLAYERS, $team1->players());
-        $this->assertCount(TeamSize::MAX_PLAYERS, $team2->players());
+        $this->assertCount(Teams::MAX_PLAYERS, $team1->players());
+        $this->assertCount(Teams::MAX_PLAYERS, $team2->players());
     }
 
     private function playerStub($ranking = 5, $isGoalie = false)

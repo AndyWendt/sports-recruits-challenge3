@@ -10,6 +10,9 @@ use Illuminate\Support\Collection;
 
 class Teams extends Collection
 {
+    public const MIN_PLAYERS = 18;
+    public const MAX_PLAYERS = 22;
+
     public static function from(Players $players)
     {
         $teams = (new self())

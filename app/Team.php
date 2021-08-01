@@ -36,7 +36,7 @@ class Team
 
     public function canAddPlayer()
     {
-        return $this->players->count() < TeamSize::MAX_PLAYERS;
+        return $this->players->count() < Teams::MAX_PLAYERS;
     }
 
     public function add($player)
