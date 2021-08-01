@@ -11,17 +11,6 @@ class Players extends Collection
         return $this->filter(fn($player) => $player->isGoalie)->sortByDesc('ranking');
     }
 
-    public function ranked(): self
-    {
-        $goalieIds = $this->goalies()->pluck('id')->all();
-        return $this->whereNotIn('id', $goalieIds)->sortByDesc('ranking');
-    }
-
-    public function sorted(): self
-    {
-        return $this->goalies()->concat($this->ranked());
-    }
-
     public function averageRanking()
     {
         return $this->avg('ranking');
@@ -40,5 +29,16 @@ class Players extends Collection
                 $highestRankedTeam = $teams->highestRanked();
                 if ($highestRankedTeam->canAddPlayer()) $highestRankedTeam->add(player: $player);
             });
+    }
+
+    private function ranked(): self
+    {
+        $goalieIds = $this->goalies()->pluck('id')->all();
+        return $this->whereNotIn('id', $goalieIds)->sortByDesc('ranking');
+    }
+
+    private function sorted(): self
+    {
+        return $this->goalies()->concat($this->ranked());
     }
 }
