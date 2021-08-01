@@ -6,8 +6,8 @@ use function collect;
 
 class TeamSize
 {
-    public const MIN = 18;
-    public const MAX = 22;
+    public const MIN_PLAYERS = 18;
+    public const MAX_PLAYERS = 22;
 
     public function __construct(private $players) {}
 
@@ -29,6 +29,6 @@ class TeamSize
 
     private function sizeRange(): array
     {
-        return range(static::MIN, static::MAX);
+        return range(static::MIN_PLAYERS, static::MAX_PLAYERS);
     }
 }
