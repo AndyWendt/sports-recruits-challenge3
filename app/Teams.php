@@ -20,4 +20,9 @@ class Teams extends Collection
 
         return $teams;
     }
+
+    public function highestRanked()
+    {
+        return $this->sort(fn($a, $b) => $a->sum() <=> $b->sum())->first();
+    }
 }
