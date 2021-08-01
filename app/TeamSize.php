@@ -12,14 +12,6 @@ class TeamSize
     public function __construct(private $players) {}
 
     /**
-     * Return maximum number of team players
-     */
-    public function max(): int
-    {
-        return max($this->sizeRange());
-    }
-
-    /**
      * Return number of teams we can generate
      * with at least one goalie
      */

@@ -6,7 +6,6 @@ use App\Players;
 use App\Team;
 use App\Teams;
 use App\TeamSize;
-use App\User;
 use Tests\TestCase;
 
 

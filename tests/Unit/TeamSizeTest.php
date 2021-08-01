@@ -12,16 +12,6 @@ class TeamSizeTest extends TestCase
     /**
      * @test
      */
-    public function it_determines_the_max_team_players()
-    {
-        $instance = new TeamSize(new Players([]));
-        $result = $instance->max();
-        $this->assertSame(TeamSize::MAX, $result);
-    }
-
-    /**
-     * @test
-     */
     public function it_determines_the_number_of_teams_possible_based_on_goalies()
     {
         $goaliesCount = 2;
