@@ -4,7 +4,7 @@
 
 ### Resources
 
-* [Working Effectively with Legacy Code by Michael Feathers](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) [WELC]
+* [Working Effectively with Legacy Code by Michael Feathers](https://www.oreilly.com/library/view/working-effectively-with/0131177052/)
 * [Refactoring](https://refactoring.com/)
 * [POODR](https://www.poodr.com/)
 * [All the Little Things](https://www.youtube.com/watch?v=8bZh5LMaSmE)
