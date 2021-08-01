@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Players;
 use App\Team;
 use App\Teams;
-use App\TeamSize;
 use Tests\TestCase;
 
 
@@ -75,8 +74,8 @@ class PlayersTest extends TestCase
 
         (new Players($players))->assignTo(new Teams([$team1, $team2]));
 
-        $this->assertCount(Teams::MAX_PLAYERS, $team1->players());
-        $this->assertCount(Teams::MAX_PLAYERS, $team2->players());
+        $this->assertCount(Team::MAX_PLAYERS, $team1->players());
+        $this->assertCount(Team::MAX_PLAYERS, $team2->players());
     }
 
     private function playerStub($ranking = 5, $isGoalie = false)

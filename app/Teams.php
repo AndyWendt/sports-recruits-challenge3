@@ -2,21 +2,17 @@
 
 namespace App;
 
-use App\AssignPlayers;
-use App\Players;
-use App\TeamSize;
-use App\Team;
 use Illuminate\Support\Collection;
 
 class Teams extends Collection
 {
-    public const MIN_PLAYERS = 18;
-    public const MAX_PLAYERS = 22;
 
     public static function from(Players $players)
     {
+        $teamCount = (new TeamsCount())->for($players);
+
         $teams = (new self())
-            ->times((new TeamSize($players))->numberOfTeams())
+            ->times($teamCount)
             ->map(fn() => Team::instance());
 
         $players->assignTo(teams: $teams);
@@ -26,6 +22,6 @@ class Teams extends Collection
 
     public function highestRanked()
     {
-        return $this->sort(fn($a, $b) => $a->sum() <=> $b->sum())->first();
+        return $this->sort(fn($teamA, $teamB) => $teamA->sum() <=> $teamB->sum())->first();
     }
 }

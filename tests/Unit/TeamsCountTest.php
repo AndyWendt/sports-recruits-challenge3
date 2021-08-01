@@ -2,12 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Players;
-use App\TeamSize;
+use App\TeamsCount;
 use Tests\TestCase;
 
 
-class TeamSizeTest extends TestCase
+class TeamsCountTest extends TestCase
 {
     /**
      * @test
@@ -15,8 +14,8 @@ class TeamSizeTest extends TestCase
     public function it_determines_the_number_of_teams_possible_based_on_goalies()
     {
         $goaliesCount = 2;
-        $instance = new TeamSize($this->playersStub(playersCount: 42, goaliesCount: $goaliesCount));
-        $result = $instance->numberOfTeams();
+        $players = $this->playersStub(playersCount: 42, goaliesCount: $goaliesCount);
+        $result = (new TeamsCount())->for($players);
         $this->assertSame($goaliesCount, $result);
     }
 
@@ -25,8 +24,7 @@ class TeamSizeTest extends TestCase
      */
     public function it_determines_the_number_of_teams_possible()
     {
-        $instance = new TeamSize($this->playersStub(playersCount: 88, goaliesCount: 6));
-        $result = $instance->numberOfTeams();
+        $result = (new TeamsCount())->for($this->playersStub(playersCount: 88, goaliesCount: 6));
         $this->assertSame(4, $result);
     }
 
@@ -35,8 +33,7 @@ class TeamSizeTest extends TestCase
      */
     public function it_ensures_there_are_an_even_number_of_teams()
     {
-        $instance = new TeamSize($this->playersStub(playersCount: 240, goaliesCount: 20));
-        $result = $instance->numberOfTeams();
+        $result = (new TeamsCount())->for($this->playersStub(playersCount: 240, goaliesCount: 20));
         $this->assertSame(12, $result);
     }
 

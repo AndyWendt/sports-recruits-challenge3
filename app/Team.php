@@ -2,11 +2,13 @@
 
 namespace App;
 
-use App\TeamSize;
 use Faker\Factory as Faker;
 
 class Team
 {
+    public const MIN_PLAYERS = 18;
+    public const MAX_PLAYERS = 22;
+
     public static function instance()
     {
         return new self(name: Faker::create()->company, players: new Players());
@@ -36,7 +38,7 @@ class Team
 
     public function canAddPlayer()
     {
-        return $this->players->count() < Teams::MAX_PLAYERS;
+        return $this->players->count() < self::MAX_PLAYERS;
     }
 
     public function add($player)
