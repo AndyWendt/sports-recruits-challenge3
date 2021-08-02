@@ -11,13 +11,10 @@ class Teams extends Collection
     {
         $teamCount = (new TeamsCount())->for($players);
 
-        $teams = (new self())
+        return (new self())
             ->times($teamCount)
-            ->map(fn() => Team::instance());
-
-        $players->assignTo(teams: $teams);
-
-        return $teams;
+            ->map(fn() => Team::instance())
+            ->tap(fn($teams) => $players->assignTo(teams: $teams));
     }
 
     public function highestRanked()
